@@ -31,11 +31,12 @@ def layer(input,weights):
     return(out)
 
 def network (input,weights_all):
+    input=input
     #getting into each  layer one at a time
     for i in weights_all:
         layer_i=layer(input,i)
         print(layer_i)
+        input=layer_i
  
 y=network(input,weight)
-
 
