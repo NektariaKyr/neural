@@ -9,7 +9,7 @@ weight_3=np.random.rand(4,3)
 weight_4=np.random.rand(3,5)
 weight=[weight_1,weight_2,weight_3,weight_4]
 input=[2,9,10]
-
+output=np.random.rand(1,3)
 def sigmoid(x):
     item=x
     a=(1/(1+math.exp(-item)))
@@ -35,8 +35,34 @@ def network (input,weights_all):
     #getting into each  layer one at a time
     for i in weights_all:
         layer_i=layer(input,i)
-        print(layer_i)
         input=layer_i
  
 y=network(input,weight)
 
+def loss(x):
+    f=0
+    for i in x:
+        f=f+i**2
+    return f
+
+def grad(x,e,fin):
+    gr=[]
+    list_high=[]
+    list_low=[]
+    for i in range(0,len(x)):
+        x[i]=x[i]+e
+        l_high=fin
+        list_high.append(l_high)
+        print(x)
+        x[i]=x[i]-e
+    for i in range(0,len(x)):
+        x[i]=x[i]-e
+        l_low=fin
+        list_low.append(l_low)
+        x[i]=x[i]+e
+    for i in range(0,len(x)):
+        gradient=(list_high[i]-list_low[i])/(2*e)
+        gr.append(gradient)
+    return gr
+
+print(grad(input,0.01,loss(input)))
