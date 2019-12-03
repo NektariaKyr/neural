@@ -51,18 +51,20 @@ def grad(x,e,fin):
     list_low=[]
     for i in range(0,len(x)):
         x[i]=x[i]+e
-        l_high=fin
+        l_high=fin(x)
         list_high.append(l_high)
-        print(x)
+        print (x)
         x[i]=x[i]-e
+        
     for i in range(0,len(x)):
         x[i]=x[i]-e
-        l_low=fin
+        l_low=fin(x)
         list_low.append(l_low)
+        print (x)
         x[i]=x[i]+e
     for i in range(0,len(x)):
         gradient=(list_high[i]-list_low[i])/(2*e)
         gr.append(gradient)
     return gr
 
-print(grad(input,0.01,loss(input)))
+print(grad(input,0.01,loss))
